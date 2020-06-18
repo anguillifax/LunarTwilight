@@ -33,7 +33,7 @@ namespace nova::input {
 
 	static const Uint8* KEYBOARD_STATE = nullptr;
 
-	void KeyboardButton::update(const std::vector<SDL_Event>&)
+	void KeyboardButton::update(const EventQueue&)
 	{
 		if (KEYBOARD_STATE == nullptr) {
 			KEYBOARD_STATE = SDL_GetKeyboardState(nullptr);

@@ -24,7 +24,7 @@ namespace nova::input {
 		bool get_just_pressed() const override;
 		bool get_released() const override;
 		bool get_just_released() const override;
-		void update(const std::vector<SDL_Event>& events) override;
+		void update(const EventQueue& events) override;
 	};
 
 } // namespace nova::input

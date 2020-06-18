@@ -2,7 +2,9 @@
 
 namespace nova::input {
 
-	// must see all events before from them
+	// Designed to avoid SDL header files in public interface
+	class EventQueue;
+
 	class InputSystem {
 
 		struct Data;
@@ -27,7 +29,7 @@ namespace nova::input {
 		// Interface
 		// =========
 
-		void init();
+		void update(const EventQueue& events);
 
 	};
 

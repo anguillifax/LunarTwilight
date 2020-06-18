@@ -23,7 +23,7 @@ namespace nova::input {
 	{
 		return just_released;
 	}
-	void GamepadButton::update(const std::vector<SDL_Event>& events)
+	void GamepadButton::update(const EventQueue& events)
 	{
 		
 	}

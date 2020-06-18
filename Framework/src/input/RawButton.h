@@ -1,8 +1,6 @@
 #pragma once
 
-#include <SDL_events.h>
-
-#include <vector>
+#include "EventQueue.h"
 
 namespace nova::input {
 
@@ -56,7 +54,7 @@ namespace nova::input {
 		 * 
 		 * @param events All events from this update period.
 		 */
-		virtual void update(const std::vector<SDL_Event>& events) = 0;
+		virtual void update(const EventQueue& events) = 0;
 
 	};
 

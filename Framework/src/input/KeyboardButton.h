@@ -35,7 +35,7 @@ namespace nova::input {
 		[[nodiscard]] bool get_just_pressed() const override;
 		[[nodiscard]] bool get_released() const override;
 		[[nodiscard]] bool get_just_released() const override;
-		void update(const std::vector<SDL_Event>& events) override;
+		void update(const EventQueue& events) override;
 
 	};
 

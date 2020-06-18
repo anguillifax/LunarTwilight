@@ -160,13 +160,16 @@
     <ClCompile Include="src\input\InputSystem.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\StringName.cpp" />
+    <ClCompile Include="src\input\VirtualButton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\input\EventQueue.h" />
     <ClInclude Include="src\input\GamepadButton.h" />
     <ClInclude Include="src\input\KeyboardButton.h" />
     <ClInclude Include="src\input\InputSystem.h" />
     <ClInclude Include="src\input\RawButton.h" />
     <ClInclude Include="src\StringName.h" />
+    <ClInclude Include="src\input\VirtualButton.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-tidy" />
