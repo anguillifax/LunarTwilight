@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../StringName.h"
+
+#include "RawButton.h"
+
 namespace nova::input {
 
 	// Designed to avoid SDL header files in public interface
@@ -30,6 +34,13 @@ namespace nova::input {
 		// =========
 
 		void update(const EventQueue& events);
+
+		void debug_create_button(const StringName& name, RawButton* rb);
+
+		[[nodiscard]] bool get_pressed(const StringName& button_name) const;
+		[[nodiscard]] bool get_just_pressed(const StringName& button_name) const;
+		[[nodiscard]] bool get_released(const StringName& button_name) const;
+		[[nodiscard]] bool get_just_released(const StringName& button_name) const;
 
 	};
 

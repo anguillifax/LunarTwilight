@@ -24,13 +24,16 @@ namespace nova {
 		input::EventQueue events;
 		input::InputSystem input_system;
 
-		input::KeyboardButton btn;
+		auto* kbb = new input::KeyboardButton;
+		kbb->add_button(SDL_SCANCODE_T);
+		kbb->add_button(SDL_SCANCODE_R);
+		input_system.debug_create_button("test", kbb);
 
 		while (!quit) {
 
 			events.clear();
 
-			while (SDL_PollEvent(&cur_event)) {
+			while (SDL_PollEvent(&cur_event) != SDL_FALSE) {
 				switch (cur_event.type) {
 					case SDL_QUIT:
 						quit = true;
@@ -46,6 +49,13 @@ namespace nova {
 			}
 
 			input_system.update(events);
+
+			if (input_system.get_just_pressed("test")) {
+				puts("jp");
+			}
+			if (input_system.get_just_released("test")) {
+				puts("j^^^^");
+			}
 
 			SDL_RenderClear(renderer);
 

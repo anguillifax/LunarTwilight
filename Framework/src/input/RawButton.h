@@ -33,19 +33,9 @@ namespace nova::input {
 		virtual bool get_pressed() const = 0;
 
 		/**
-		 * @brief The button was pressed this update period.
-		 */
-		virtual bool get_just_pressed() const = 0;
-
-		/**
 		 * @brief The button is currently released.
 		 */
 		virtual bool get_released() const = 0;
-
-		/**
-		 * @brief The button was released this frame.
-		 */
-		virtual bool get_just_released() const = 0;
 
 		/**
 		 * @brief Update the internal state of the button.

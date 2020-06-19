@@ -4,6 +4,7 @@
 #include "EventQueue.h"
 #include "RawButton.h"
 #include "VirtualButton.h"
+#include "KeyboardButton.h"
 
 #include <SDL.h>
 
@@ -29,10 +30,11 @@ namespace nova::input {
 	InputSystem::InputSystem()
 		: data(nullptr)
 	{
-		auto mask = SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER;
-		if (mask != SDL_WasInit(mask)) {
-			throw std::exception("InputSystem::ctor() Failed to create InputSystem. SDL Events and GameController subsystems were not initialized");
-		}
+		// TODO: Add something that needs this check or get rid of it
+		//auto mask = SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER;
+		//if (mask != SDL_WasInit(mask)) {
+		//	throw std::exception("InputSystem::ctor() Failed to create InputSystem. SDL Events and GameController subsystems were not initialized");
+		//}
 
 		data = new Data;
 	}
@@ -44,6 +46,52 @@ namespace nova::input {
 
 	void InputSystem::update(const EventQueue& events)
 	{
+		for (const auto& rbutton : data->raw_buttons) {
+			rbutton->update(events);
+		}
+		for (auto& item : data->virtual_buttons) {
+			item.second.update();
+		}
+	}
+
+	void InputSystem::debug_create_button(const StringName& name, RawButton* rb)
+	{
+		data->raw_buttons.emplace_back(rb);
+		VirtualButton b;
+		b.add(rb);
+		data->virtual_buttons.emplace(name, b);
+	}
+
+	bool InputSystem::get_pressed(const StringName& button_name) const
+	{
+		auto it = data->virtual_buttons.find(button_name);
+		if (it != data->virtual_buttons.end()) {
+			return it->second.get_pressed();
+		}
+		return false;
+	}
+
+	bool InputSystem::get_just_pressed(const StringName& button_name) const
+	{
+		auto it = data->virtual_buttons.find(button_name);
+		if (it != data->virtual_buttons.end()) {
+			return it->second.get_just_pressed();
+		}
+		return false;
+	}
+
+	bool InputSystem::get_released(const StringName& button_name) const
+	{
+		return !get_pressed(button_name);
+	}
+
+	bool InputSystem::get_just_released(const StringName& button_name) const
+	{
+		auto it = data->virtual_buttons.find(button_name);
+		if (it != data->virtual_buttons.end()) {
+			return it->second.get_just_released();
+		}
+		return false;
 	}
 
 } // namespace nova::input

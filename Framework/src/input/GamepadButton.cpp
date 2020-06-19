@@ -11,18 +11,12 @@ namespace nova::input {
 	{
 		return pressed;
 	}
-	bool GamepadButton::get_just_pressed() const
-	{
-		return just_pressed;
-	}
+
 	bool GamepadButton::get_released() const
 	{
 		return !pressed;
 	}
-	bool GamepadButton::get_just_released() const
-	{
-		return just_released;
-	}
+
 	void GamepadButton::update(const EventQueue& events)
 	{
 		

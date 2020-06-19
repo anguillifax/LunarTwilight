@@ -15,8 +15,6 @@ namespace nova::input {
 
 		std::unordered_set<SDL_Scancode> scancodes;
 		bool pressed = false;
-		bool just_pressed = false;
-		bool just_released = false;
 
 	public:
 
@@ -32,9 +30,7 @@ namespace nova::input {
 
 		// Inherited via RawButton
 		[[nodiscard]] bool get_pressed() const override;
-		[[nodiscard]] bool get_just_pressed() const override;
 		[[nodiscard]] bool get_released() const override;
-		[[nodiscard]] bool get_just_released() const override;
 		void update(const EventQueue& events) override;
 
 	};
