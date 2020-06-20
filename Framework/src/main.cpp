@@ -80,6 +80,11 @@ namespace nova {
 				log_vbutton("enter");
 				log_vbutton("cancel");
 
+				if (input_system.get_mouse_moved()) {
+					auto pos = input_system.get_mouse_position();
+					std::cout << '(' << pos.x << ", " << pos.y << ")\n";
+				}
+
 			}
 
 			SDL_RenderClear(renderer);

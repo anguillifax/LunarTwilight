@@ -25,6 +25,9 @@ namespace nova {
 		// Borrows ownership from raw_buttons
 		std::unordered_map<StringName, VirtualButton> virtual_buttons;
 
+		bool mouse_moved;
+		MousePosition mouse_pos;
+
 	};
 
 	InputSystem::InputSystem()
@@ -47,10 +50,21 @@ namespace nova {
 	void InputSystem::update(const EventQueue& events)
 	{
 		for (const auto& rbutton : data->raw_buttons) {
-			rbutton->update(events);
+			rbutton->update();
 		}
+
 		for (auto& item : data->virtual_buttons) {
 			item.second.update();
+		}
+
+		data->mouse_moved = false;
+		for (const SDL_Event& ev : events) {
+			if (ev.type == SDL_MOUSEMOTION) {
+				data->mouse_moved = true;
+				data->mouse_pos.x = ev.motion.x;
+				data->mouse_pos.y = ev.motion.y;
+				break;
+			}
 		}
 	}
 
@@ -114,6 +128,16 @@ namespace nova {
 			return it->second.get_just_released();
 		}
 		return false;
+	}
+
+	bool InputSystem::get_mouse_moved() const
+	{
+		return data->mouse_moved;
+	}
+
+	const InputSystem::MousePosition& InputSystem::get_mouse_position() const
+	{
+		return data->mouse_pos;
 	}
 
 } // namespace nova

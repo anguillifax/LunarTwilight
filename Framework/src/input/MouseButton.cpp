@@ -22,7 +22,7 @@ namespace nova {
 		return !pressed;
 	}
 
-	void MouseButton::update(const EventQueue&)
+	void MouseButton::update()
 	{
 		SDL_MouseButton mask = 0u;
 		for (SDL_MouseButton btn : buttons) {

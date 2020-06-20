@@ -29,7 +29,7 @@ namespace nova {
 		return !pressed;
 	}
 
-	void GamepadAxisButton::update(const EventQueue&)
+	void GamepadAxisButton::update()
 	{
 		pressed = false;
 		for (SDL_GameController* gamepad : GamepadUtility::get()) {

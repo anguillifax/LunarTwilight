@@ -24,7 +24,7 @@ namespace nova {
 		// Inherited via RawButton
 		[[nodiscard]] bool get_pressed() const override;
 		[[nodiscard]] bool get_released() const override;
-		void update(const EventQueue& events) override;
+		void update() override;
 
 	};
 

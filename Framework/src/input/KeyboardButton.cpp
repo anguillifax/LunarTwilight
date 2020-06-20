@@ -28,7 +28,7 @@ namespace nova {
 		return !pressed;
 	}
 
-	void KeyboardButton::update(const EventQueue&)
+	void KeyboardButton::update()
 	{
 		if (KEYBOARD_STATE == nullptr) {
 			KEYBOARD_STATE = SDL_GetKeyboardState(nullptr);

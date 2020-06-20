@@ -16,7 +16,12 @@ namespace nova {
 		struct Data;
 		Data* data;
 
-	public:
+	public: 
+
+		struct MousePosition {
+			int x;
+			int y;
+		};
 
 		// ============
 		// Construction
@@ -44,6 +49,9 @@ namespace nova {
 		[[nodiscard]] bool get_just_pressed(const StringName& button_name) const;
 		[[nodiscard]] bool get_released(const StringName& button_name) const;
 		[[nodiscard]] bool get_just_released(const StringName& button_name) const;
+
+		[[nodiscard]] bool get_mouse_moved() const;
+		[[nodiscard]] const MousePosition& get_mouse_position() const;
 
 	};
 

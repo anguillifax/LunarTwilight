@@ -44,7 +44,7 @@ namespace nova {
 		 * 
 		 * @param events All events from this update period.
 		 */
-		virtual void update(const EventQueue& events) = 0;
+		virtual void update() = 0;
 
 	};
 
