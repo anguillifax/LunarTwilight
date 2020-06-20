@@ -1,6 +1,11 @@
 #include "VirtualButton.h"
 
-namespace nova::input {
+namespace nova {
+
+	VirtualButton::VirtualButton(const std::initializer_list<RawButton*>& sub_button_list)
+		: buttons(sub_button_list)
+	{
+	}
 
 	/**
 	* @brief Add a new button to the VirtualButton.
@@ -10,7 +15,7 @@ namespace nova::input {
 	*
 	* @param button Button to add.
 	*/
-	void VirtualButton::add(RawButton* button)
+	void VirtualButton::add_sub_button(RawButton* button)
 	{
 		buttons.emplace(button);
 	}
@@ -31,4 +36,4 @@ namespace nova::input {
 		just_released = !pressed && last_pressed;
 	}
 
-} // namespace nova::input
+} // namespace nova

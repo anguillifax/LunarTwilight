@@ -2,9 +2,9 @@
 
 #include "../StringName.h"
 #include "EventQueue.h"
+#include "KeyboardButton.h"
 #include "RawButton.h"
 #include "VirtualButton.h"
-#include "KeyboardButton.h"
 
 #include <SDL.h>
 
@@ -12,15 +12,15 @@
 #include <iostream>
 #include <memory>
 #include <unordered_map>
-#include <vector>
+#include <unordered_set>
 
-namespace nova::input {
+namespace nova {
 
 	// Internal representation
 	struct InputSystem::Data {
 		
 		// Has ownership of all raw buttons
-		std::vector<std::unique_ptr<RawButton>> raw_buttons;
+		std::unordered_set<std::unique_ptr<RawButton>> raw_buttons;
 
 		// Borrows ownership from raw_buttons
 		std::unordered_map<StringName, VirtualButton> virtual_buttons;
@@ -54,12 +54,34 @@ namespace nova::input {
 		}
 	}
 
-	void InputSystem::debug_create_button(const StringName& name, RawButton* rb)
+	void InputSystem::bind(const StringName& name, RawButton* rb)
 	{
-		data->raw_buttons.emplace_back(rb);
-		VirtualButton b;
-		b.add(rb);
-		data->virtual_buttons.emplace(name, b);
+		data->raw_buttons.emplace(rb);
+		auto it = data->virtual_buttons.find(name);
+		if (it == data->virtual_buttons.end()) {
+			VirtualButton b;
+			b.add_sub_button(rb);
+			data->virtual_buttons.emplace(name, b);
+		} else {
+			it->second.add_sub_button(rb);
+		}
+	}
+
+	void InputSystem::bind(const StringName& name, const std::initializer_list<RawButton*>& sub_button_list)
+	{
+		for (RawButton* btn : sub_button_list) {
+			data->raw_buttons.emplace(btn);
+		}
+
+		auto it = data->virtual_buttons.find(name);
+		if (it == data->virtual_buttons.end()) {
+			VirtualButton b(sub_button_list);
+			data->virtual_buttons.emplace(name, b);
+		} else {
+			for (RawButton* btn : sub_button_list) {
+				it->second.add_sub_button(btn);
+			}
+		}
 	}
 
 	bool InputSystem::get_pressed(const StringName& button_name) const
@@ -94,5 +116,4 @@ namespace nova::input {
 		return false;
 	}
 
-} // namespace nova::input
-
+} // namespace nova

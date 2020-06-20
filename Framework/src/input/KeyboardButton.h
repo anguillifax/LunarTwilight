@@ -4,9 +4,10 @@
 
 #include "SDL_scancode.h"
 
+#include <initializer_list>
 #include <unordered_set>
 
-namespace nova::input {
+namespace nova {
 
 	/**
 	 * @brief A button backed by a keyboard input.
@@ -17,6 +18,9 @@ namespace nova::input {
 		bool pressed = false;
 
 	public:
+
+		KeyboardButton() = default;
+		KeyboardButton(const std::initializer_list<SDL_Scancode>& scancode_list);
 
 		/**
 		 * @brief Add another scancode to the tracking list.
@@ -35,5 +39,5 @@ namespace nova::input {
 
 	};
 
-} // namespace nova::input
+} // namespace nova
 

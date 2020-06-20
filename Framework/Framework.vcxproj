@@ -155,6 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\input\MouseButton.cpp" />
+    <ClCompile Include="src\main_helper.cpp" />
+    <ClCompile Include="src\input\GamepadAxisButton.cpp" />
+    <ClCompile Include="src\input\GamepadUtility.cpp" />
     <ClCompile Include="src\input\GamepadButton.cpp" />
     <ClCompile Include="src\input\KeyboardButton.cpp" />
     <ClCompile Include="src\input\InputSystem.cpp" />
@@ -163,6 +167,10 @@
     <ClCompile Include="src\input\VirtualButton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\input\MouseButton.h" />
+    <ClInclude Include="src\main_helper.h" />
+    <ClInclude Include="src\input\GamepadAxisButton.h" />
+    <ClInclude Include="src\input\GamepadUtility.h" />
     <ClInclude Include="src\input\EventQueue.h" />
     <ClInclude Include="src\input\GamepadButton.h" />
     <ClInclude Include="src\input\KeyboardButton.h" />

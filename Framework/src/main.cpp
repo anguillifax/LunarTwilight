@@ -1,7 +1,9 @@
+#include "main_helper.h"
+
 #include "StringName.h"
-#include "input/KeyboardButton.h"
 #include "input/InputSystem.h"
 #include "input/EventQueue.h"
+#include "input/GamepadUtility.h"
 
 #include <SDL.h>
 
@@ -9,6 +11,22 @@
 #include <vector>
 
 namespace nova {
+
+	namespace
+	{
+		InputSystem input_system;
+
+		void log_vbutton(const std::string& name)
+		{
+			if (input_system.get_just_pressed(name)) {
+				puts(name.c_str());
+			}
+			if (input_system.get_just_released(name)) {
+				puts((name + " ^^^").c_str());
+			}
+
+		}
+	} // namespace 
 
 	void run()
 	{
@@ -19,15 +37,12 @@ namespace nova {
 		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 		bool quit = false;
+		bool pause = false;
 		SDL_Event cur_event{};
 
-		input::EventQueue events;
-		input::InputSystem input_system;
+		EventQueue events;
 
-		auto* kbb = new input::KeyboardButton;
-		kbb->add_button(SDL_SCANCODE_T);
-		kbb->add_button(SDL_SCANCODE_R);
-		input_system.debug_create_button("test", kbb);
+		LoadInputs _ip(&input_system);
 
 		while (!quit) {
 
@@ -39,8 +54,13 @@ namespace nova {
 						quit = true;
 						break;
 					case SDL_KEYDOWN:
-						if (cur_event.key.keysym.scancode == SDL_SCANCODE_F4) {
-							quit = true;
+						switch (cur_event.key.keysym.scancode) {
+							case SDL_SCANCODE_F4:
+								quit = true;
+								break;
+							case SDL_SCANCODE_P:
+								pause = !pause;
+								break;
 						}
 						break;
 				}
@@ -48,13 +68,18 @@ namespace nova {
 				events.push_back(cur_event);
 			}
 
-			input_system.update(events);
+			if (!pause) {
 
-			if (input_system.get_just_pressed("test")) {
-				puts("jp");
-			}
-			if (input_system.get_just_released("test")) {
-				puts("j^^^^");
+				GamepadUtility::update(events);
+				input_system.update(events);
+
+				log_vbutton("left");
+				log_vbutton("right");
+				log_vbutton("up");
+				log_vbutton("down");
+				log_vbutton("enter");
+				log_vbutton("cancel");
+
 			}
 
 			SDL_RenderClear(renderer);

@@ -4,7 +4,12 @@
 
 #include <iostream>
 
-namespace nova::input {
+namespace nova {
+
+	KeyboardButton::KeyboardButton(const std::initializer_list<SDL_Scancode>& scancode_list)
+		: scancodes(scancode_list)
+	{
+	}
 
 	void KeyboardButton::add_button(SDL_Scancode code)
 	{
@@ -38,4 +43,4 @@ namespace nova::input {
 		}
 	}
 
-} // namespace nova::input
+} // namespace nova

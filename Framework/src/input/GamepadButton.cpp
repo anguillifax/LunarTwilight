@@ -1,6 +1,13 @@
 #include "GamepadButton.h"
 
-namespace nova::input {
+#include "GamepadUtility.h"
+
+namespace nova {
+
+	GamepadButton::GamepadButton(const std::initializer_list<SDL_GameControllerButton>& button_list)
+		: buttons(button_list)
+	{
+	}
 
 	void GamepadButton::add_button(SDL_GameControllerButton button)
 	{
@@ -17,9 +24,17 @@ namespace nova::input {
 		return !pressed;
 	}
 
-	void GamepadButton::update(const EventQueue& events)
+	void GamepadButton::update(const EventQueue&)
 	{
-		
+		pressed = false;
+		for (SDL_GameController* gamepad : GamepadUtility::get()) {
+			for (SDL_GameControllerButton btn : buttons) {
+				if (SDL_GameControllerGetButton(gamepad, btn) == 1) {
+					pressed = true;
+					return;
+				}
+			}
+		}
 	}
 
-} // namespace nova::input
+} // namespace nova

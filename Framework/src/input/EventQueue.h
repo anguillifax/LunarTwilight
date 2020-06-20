@@ -4,7 +4,7 @@
 
 #include <vector>
 
-namespace nova::input {
+namespace nova {
 
 	/**
 	 * @brief Holds a collection of all SDL Events from this update period.
@@ -17,5 +17,5 @@ namespace nova::input {
 
 	};
 
-} // namespace nova::input
+} // namespace nova
 

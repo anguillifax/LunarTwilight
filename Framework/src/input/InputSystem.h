@@ -4,7 +4,9 @@
 
 #include "RawButton.h"
 
-namespace nova::input {
+#include <initializer_list>
+
+namespace nova {
 
 	// Designed to avoid SDL header files in public interface
 	class EventQueue;
@@ -35,7 +37,8 @@ namespace nova::input {
 
 		void update(const EventQueue& events);
 
-		void debug_create_button(const StringName& name, RawButton* rb);
+		void bind(const StringName& name, RawButton* sub_button);
+		void bind(const StringName& name, const std::initializer_list<RawButton*>& sub_button_list);
 
 		[[nodiscard]] bool get_pressed(const StringName& button_name) const;
 		[[nodiscard]] bool get_just_pressed(const StringName& button_name) const;
@@ -44,5 +47,5 @@ namespace nova::input {
 
 	};
 
-} // namespace nova::input
+} // namespace nova
 

@@ -2,9 +2,10 @@
 
 #include "RawButton.h"
 
+#include <initializer_list>
 #include <unordered_set>
 
-namespace nova::input {
+namespace nova {
 
 	/**
 	 * @brief Combines multiple raw buttons into a single button.
@@ -18,6 +19,9 @@ namespace nova::input {
 
 	public:
 
+		VirtualButton() = default;
+		VirtualButton(const std::initializer_list<RawButton*>& sub_button_list);
+
 		/**
 		 * @brief Add a new button to the VirtualButton.
 		 *
@@ -26,7 +30,7 @@ namespace nova::input {
 		 *
 		 * @param button Button to add.
 		 */
-		void add(RawButton* button);
+		void add_sub_button(RawButton* button);
 
 		void update();
 
@@ -50,5 +54,5 @@ namespace nova::input {
 
 	};
 
-} // namespace nova::input
+} // namespace nova
 

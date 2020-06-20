@@ -2,7 +2,7 @@
 
 #include "EventQueue.h"
 
-namespace nova::input {
+namespace nova {
 
 	/**
 	 * @brief Protocol for all buttons.
@@ -48,4 +48,4 @@ namespace nova::input {
 
 	};
 
-} // namespace nova::input
+} // namespace nova
